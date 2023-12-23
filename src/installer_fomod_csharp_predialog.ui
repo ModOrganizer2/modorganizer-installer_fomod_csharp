@@ -48,19 +48,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="nccBtn">
-       <property name="toolTip">
-        <string>Use the NCC installer instead of the built-in MO2 installer.</string>
-       </property>
-       <property name="whatsThis">
-        <string/>
-       </property>
-       <property name="text">
-        <string>Use NCC</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>

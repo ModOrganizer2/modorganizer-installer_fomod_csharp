@@ -78,22 +78,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="installer_fomod_csharp_predialog.ui" line="53"/>
-        <source>Use the NCC installer instead of the built-in MO2 installer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="installer_fomod_csharp_predialog.ui" line="59"/>
-        <source>Use NCC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="installer_fomod_csharp_predialog.ui" line="82"/>
+        <location filename="installer_fomod_csharp_predialog.ui" line="69"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="installer_fomod_csharp_predialog.ui" line="92"/>
+        <location filename="installer_fomod_csharp_predialog.ui" line="79"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>

@@ -24,7 +24,7 @@ along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace MOBase;
 
-bool InstallerFomodCSharp::init(IOrganizer *moInfo) {
+bool InstallerFomodCSharp::init(IOrganizer* moInfo) {
   m_MOInfo = moInfo;
   CSharp::init(moInfo);
   return true;
@@ -57,7 +57,7 @@ std::shared_ptr<const IFileTree> InstallerFomodCSharp::findFomodDirectory(std::s
 
 std::shared_ptr<const FileTreeEntry> InstallerFomodCSharp::findScriptFile(std::shared_ptr<const IFileTree> tree) const {
   auto fomodDirectory = findFomodDirectory(tree);
-  
+
   if (fomodDirectory == nullptr) {
     return nullptr;
   }
@@ -92,7 +92,7 @@ bool InstallerFomodCSharp::isArchiveSupported(std::shared_ptr<const MOBase::IFil
 }
 
 InstallerFomodCSharp::EInstallResult InstallerFomodCSharp::install(MOBase::GuessedValue<QString>& modName, std::shared_ptr<MOBase::IFileTree>& tree,
-  QString& version, int& modID) 
+  QString& version, int& modID)
 {
   static std::set<QString, FileNameComparator> imageSuffixes{ "png", "jpg", "jpeg", "gif", "bmp" };
 
@@ -118,7 +118,7 @@ InstallerFomodCSharp::EInstallResult InstallerFomodCSharp::install(MOBase::Guess
       toExtractSet.insert(entry);
     }
     return IFileTree::WalkReturn::CONTINUE;
-  });
+    });
 
   // Extract everything from the fomod/ folder:
   auto fomodFolder = findFomodDirectory(tree);
@@ -127,7 +127,7 @@ InstallerFomodCSharp::EInstallResult InstallerFomodCSharp::install(MOBase::Guess
       toExtractSet.insert(entry);
     }
     return IFileTree::WalkReturn::CONTINUE;
-  });
+    });
 
   // Convert to vector:
   std::vector toExtract(std::begin(toExtractSet), std::end(toExtractSet));
@@ -163,11 +163,7 @@ InstallerFomodCSharp::EInstallResult InstallerFomodCSharp::install(MOBase::Guess
   // Show the dialog:
   InstallerFomodPredialog dialog(modName, parentWidget());
   if (dialog.exec() != QDialog::Accepted) {
-    if (dialog.nccRequested()) {
-      modName.update(dialog.getName(), GUESS_USER);
-      return EInstallResult::RESULT_NOTATTEMPTED;
-    }
-    else if (dialog.manualRequested()) {
+    if (dialog.manualRequested()) {
       modName.update(dialog.getName(), GUESS_USER);
       return EInstallResult::RESULT_MANUALREQUESTED;
     }

@@ -72,14 +72,14 @@ IPluginInstaller::EInstallResult executeScript(System::String^ script) {
 
   int errorCount = 0;
   CompilerErrorCollection^ errors = result->Errors;
-  for each (CompilerError^ error in result->Errors) {
+  for each (CompilerError ^ error in result->Errors) {
     if (error->IsWarning) {
-      log::error("C# [{}]: {}", error->Line, CSharp::to_string(error->ErrorText));
-    }
-    else {
       log::warn("C# [{}]: {}", error->Line, CSharp::to_string(error->ErrorText));
     }
-    ++errorCount;
+    else {
+      log::error("C# [{}]: {}", error->Line, CSharp::to_string(error->ErrorText));
+      ++errorCount;
+    }
   }
 
   if (errorCount > 0) {
@@ -108,7 +108,7 @@ IPluginInstaller::EInstallResult executeScript(System::String^ script) {
 
 namespace CSharp {
 
-  IPluginInstaller::EInstallResult executeCSharpScript(QString scriptPath, std::shared_ptr<IFileTree> &tree) {
+  IPluginInstaller::EInstallResult executeCSharpScript(QString scriptPath, std::shared_ptr<IFileTree>& tree) {
 
     using namespace System;
     using namespace System::IO;
@@ -134,8 +134,8 @@ namespace CSharp {
     }
 
 
-    Regex ^regScriptClass = gcnew Regex(R"re((class\s+Script\s*:.*?)(\S*BaseScript))re");
-    Regex ^regFommUsing = gcnew Regex(R"re(\s*using\s*fomm.Scripting\s*;)re");
+    Regex^ regScriptClass = gcnew Regex(R"re((class\s+Script\s*:.*?)(\S*BaseScript))re");
+    Regex^ regFommUsing = gcnew Regex(R"re(\s*using\s*fomm.Scripting\s*;)re");
 
     String^ strBaseScriptClassName = regScriptClass->Match(script)->Groups[2]->ToString();
     Regex^ regOtherScriptClasses = gcnew Regex(String::Format(R"re((class\s+\S+\s*:.*?)(?<!\w){0})re", strBaseScriptClassName));

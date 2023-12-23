@@ -24,7 +24,7 @@ public:
    * @param parent parent widget
    **/
   explicit InstallerFomodPredialog(const MOBase::GuessedValue<QString>& preset, QWidget* parent = 0) :
-    QDialog(parent), ui(new Ui::FomodCSharpPredialog), m_Manual(false), m_NCC(false) {
+    QDialog(parent), ui(new Ui::FomodCSharpPredialog), m_Manual(false) {
 
     ui->setupUi(this);
     setWindowTitle(preset + " - " + windowTitle());
@@ -46,11 +46,6 @@ public:
   bool manualRequested() const { return m_Manual; }
 
   /**
-   * @return true if the user requested a NCC installation.
-   **/
-  bool nccRequested() const { return m_NCC; }
-
-  /**
    * @return the (user-modified) mod name
    **/
   QString getName() const { return ui->nameCombo->currentText(); }
@@ -70,16 +65,9 @@ private slots:
     this->reject();
   }
 
-  void on_nccBtn_clicked() {
-    m_NCC = true;
-    this->reject();
-  }
-
-
 private:
   std::unique_ptr<Ui::FomodCSharpPredialog> ui;
   bool m_Manual;
-  bool m_NCC;
 };
 
 #endif
