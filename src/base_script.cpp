@@ -34,9 +34,9 @@ along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 #include "imoinfo.h"
 #include "iplugingame.h"
 #include "ipluginlist.h"
+#include "igamefeatures.h"
 #include "iinstallationmanager.h"
 #include "log.h"
-
 #include "scriptextender.h"
 
 #include "psettings.h"
