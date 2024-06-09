@@ -1,9 +1,9 @@
 #ifndef PSETTINGS_H
 #define PSETTINGS_H
 
-#include <map>
-#include <QString>
 #include <QSettings>
+#include <QString>
+#include <map>
 
 /**
  * This is a small class that can be used to store INI settings in memory since
@@ -11,15 +11,15 @@
  *
  * It is a much simpler structure since it stores everything as string.
  */
-struct PSettings {
+struct PSettings
+{
 
   /**
    *
    */
   PSettings() = default;
 
-public: // Value read/write.
-
+public:  // Value read/write.
   /**
    * @brief Set the value of the given section/key.
    *
@@ -27,7 +27,8 @@ public: // Value read/write.
    * @param key The key of the value.
    * @param value The value to set.
    */
-  void setValue(QString section, QString key, QString value) {
+  void setValue(QString section, QString key, QString value)
+  {
     m_Values[std::make_pair(section, key)] = value;
   }
 
@@ -37,9 +38,11 @@ public: // Value read/write.
    * @param section The section of the value.
    * @param key The key of the value.
    *
-   * @return the corresponding value, or an empty string if the section/key does not exist.
+   * @return the corresponding value, or an empty string if the section/key does not
+   * exist.
    */
-  QString value(QString section, QString key) const {
+  QString value(QString section, QString key) const
+  {
     auto it = m_Values.find(std::make_pair(section, key));
     return it == m_Values.end() ? QString() : it->second;
   }
@@ -52,19 +55,20 @@ public: // Value read/write.
    *
    * @return true if the section/key exist.
    */
-  bool hasValue(QString section, QString key) const {
+  bool hasValue(QString section, QString key) const
+  {
     return m_Values.find(std::make_pair(section, key)) != m_Values.end();
   }
 
-public: // Output:
-
+public:  // Output:
   /**
    * @brief Convert this PSettings to a string.
    *
    * @return a string representing the content of a valid INI file corresponding
    *     to this PSettings.
    */
-  QString toString() const {
+  QString toString() const
+  {
     QString result = "";
     QString cSection;
     for (auto& p : m_Values) {
@@ -85,12 +89,12 @@ public: // Output:
    *
    * @param settings The settings to update.
    */
-  void update(QSettings& settings) const {
+  void update(QSettings& settings) const
+  {
     for (auto& p : m_Values) {
       if (p.first.first == "General") {
         settings.setValue(p.first.second, p.second);
-      }
-      else {
+      } else {
         settings.setValue(p.first.first + "/" + p.first.second, p.second);
       }
     }
@@ -99,7 +103,6 @@ public: // Output:
 private:
   // Map from <section, key> to value:
   std::map<std::pair<QString, QString>, QString> m_Values;
-
 };
 
-#endif // !PSETTINGS_H
+#endif  // !PSETTINGS_H

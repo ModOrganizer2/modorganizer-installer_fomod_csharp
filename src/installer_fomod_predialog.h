@@ -7,7 +7,6 @@
 
 #include <QCompleter>
 
-
 /**
  * @brief Dialog for the installation of a simple archive
  * a simple archive is one that doesn't require any manual changes to work correctly
@@ -23,13 +22,16 @@ public:
    * @param preset suggested name for the mod
    * @param parent parent widget
    **/
-  explicit InstallerFomodPredialog(const MOBase::GuessedValue<QString>& preset, QWidget* parent = 0) :
-    QDialog(parent), ui(new Ui::FomodCSharpPredialog), m_Manual(false) {
+  explicit InstallerFomodPredialog(const MOBase::GuessedValue<QString>& preset,
+                                   QWidget* parent = 0)
+      : QDialog(parent), ui(new Ui::FomodCSharpPredialog), m_Manual(false)
+  {
 
     ui->setupUi(this);
     setWindowTitle(preset + " - " + windowTitle());
 
-    for (auto iter = preset.variants().begin(); iter != preset.variants().end(); ++iter) {
+    for (auto iter = preset.variants().begin(); iter != preset.variants().end();
+         ++iter) {
       ui->nameCombo->addItem(*iter);
     }
 
@@ -38,7 +40,7 @@ public:
     ui->nameCombo->completer()->setCaseSensitivity(Qt::CaseSensitive);
   }
 
-  ~InstallerFomodPredialog() { }
+  ~InstallerFomodPredialog() {}
 
   /**
    * @return true if the user requested a manual installation.
@@ -52,15 +54,12 @@ public:
 
 private slots:
 
-  void on_okBtn_clicked() {
-    this->accept();
-  }
+  void on_okBtn_clicked() { this->accept(); }
 
-  void on_cancelBtn_clicked() {
-    this->reject();
-  }
+  void on_cancelBtn_clicked() { this->reject(); }
 
-  void on_manualBtn_clicked() {
+  void on_manualBtn_clicked()
+  {
     m_Manual = true;
     this->reject();
   }

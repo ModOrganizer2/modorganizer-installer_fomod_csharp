@@ -1,3 +1,5 @@
+// clang-format off
+
 #include "csharp_interface.h"
 
 #include <fstream>

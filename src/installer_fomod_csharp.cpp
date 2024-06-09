@@ -17,20 +17,22 @@ along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "iinstallationmanager.h"
 
+#include "csharp_interface.h"
+#include "installer_fomod_csharp.h"
 #include "installer_fomod_predialog.h"
 #include "xml_info_reader.h"
-#include "installer_fomod_csharp.h"
-#include "csharp_interface.h"
 
 using namespace MOBase;
 
-bool InstallerFomodCSharp::init(IOrganizer* moInfo) {
+bool InstallerFomodCSharp::init(IOrganizer* moInfo)
+{
   m_MOInfo = moInfo;
   CSharp::init(moInfo);
   return true;
 }
 
-std::shared_ptr<const IFileTree> InstallerFomodCSharp::findFomodDirectory(std::shared_ptr<const IFileTree> tree) const
+std::shared_ptr<const IFileTree>
+InstallerFomodCSharp::findFomodDirectory(std::shared_ptr<const IFileTree> tree) const
 {
   auto entry = tree->find("fomod", FileTreeEntry::DIRECTORY);
 
@@ -55,7 +57,9 @@ std::shared_ptr<const IFileTree> InstallerFomodCSharp::findFomodDirectory(std::s
   return findFomodDirectory(tree->at(0)->astree());
 }
 
-std::shared_ptr<const FileTreeEntry> InstallerFomodCSharp::findScriptFile(std::shared_ptr<const IFileTree> tree) const {
+std::shared_ptr<const FileTreeEntry>
+InstallerFomodCSharp::findScriptFile(std::shared_ptr<const IFileTree> tree) const
+{
   auto fomodDirectory = findFomodDirectory(tree);
 
   if (fomodDirectory == nullptr) {
@@ -71,7 +75,9 @@ std::shared_ptr<const FileTreeEntry> InstallerFomodCSharp::findScriptFile(std::s
   return nullptr;
 }
 
-std::shared_ptr<const FileTreeEntry> InstallerFomodCSharp::findInfoFile(std::shared_ptr<const IFileTree> tree) const {
+std::shared_ptr<const FileTreeEntry>
+InstallerFomodCSharp::findInfoFile(std::shared_ptr<const IFileTree> tree) const
+{
   auto fomodDirectory = findFomodDirectory(tree);
 
   if (fomodDirectory == nullptr) {
@@ -87,14 +93,19 @@ std::shared_ptr<const FileTreeEntry> InstallerFomodCSharp::findInfoFile(std::sha
   return nullptr;
 }
 
-bool InstallerFomodCSharp::isArchiveSupported(std::shared_ptr<const MOBase::IFileTree> tree) const {
+bool InstallerFomodCSharp::isArchiveSupported(
+    std::shared_ptr<const MOBase::IFileTree> tree) const
+{
   return findScriptFile(tree) != nullptr;
 }
 
-InstallerFomodCSharp::EInstallResult InstallerFomodCSharp::install(MOBase::GuessedValue<QString>& modName, std::shared_ptr<MOBase::IFileTree>& tree,
-  QString& version, int& modID)
+InstallerFomodCSharp::EInstallResult
+InstallerFomodCSharp::install(MOBase::GuessedValue<QString>& modName,
+                              std::shared_ptr<MOBase::IFileTree>& tree,
+                              QString& version, int& modID)
 {
-  static std::set<QString, FileNameComparator> imageSuffixes{ "png", "jpg", "jpeg", "gif", "bmp" };
+  static std::set<QString, FileNameComparator> imageSuffixes{"png", "jpg", "jpeg",
+                                                             "gif", "bmp"};
 
   // Extract the script file:
   auto scriptFile = findScriptFile(tree);
@@ -106,7 +117,7 @@ InstallerFomodCSharp::EInstallResult InstallerFomodCSharp::install(MOBase::Guess
   auto infoFile = findInfoFile(tree);
 
   // Set containing everything to extract except the script and the info file:
-  std::set<std::shared_ptr<const FileTreeEntry>> toExtractSet{ scriptFile };
+  std::set<std::shared_ptr<const FileTreeEntry>> toExtractSet{scriptFile};
 
   if (infoFile != nullptr) {
     toExtractSet.insert(infoFile);
@@ -118,7 +129,7 @@ InstallerFomodCSharp::EInstallResult InstallerFomodCSharp::install(MOBase::Guess
       toExtractSet.insert(entry);
     }
     return IFileTree::WalkReturn::CONTINUE;
-    });
+  });
 
   // Extract everything from the fomod/ folder:
   auto fomodFolder = findFomodDirectory(tree);
@@ -127,7 +138,7 @@ InstallerFomodCSharp::EInstallResult InstallerFomodCSharp::install(MOBase::Guess
       toExtractSet.insert(entry);
     }
     return IFileTree::WalkReturn::CONTINUE;
-    });
+  });
 
   // Convert to vector:
   std::vector toExtract(std::begin(toExtractSet), std::end(toExtractSet));
@@ -166,8 +177,7 @@ InstallerFomodCSharp::EInstallResult InstallerFomodCSharp::install(MOBase::Guess
     if (dialog.manualRequested()) {
       modName.update(dialog.getName(), GUESS_USER);
       return EInstallResult::RESULT_MANUALREQUESTED;
-    }
-    else {
+    } else {
       return EInstallResult::RESULT_CANCELED;
     }
   }
@@ -175,6 +185,9 @@ InstallerFomodCSharp::EInstallResult InstallerFomodCSharp::install(MOBase::Guess
 
   // Run the C# script:
   const QString scriptPath = entryToPath[scriptFile];
-  CSharp::beforeInstall(this, manager(), parentWidget(), std::const_pointer_cast<IFileTree>(scriptFile->parent()->parent()), std::move(entryToPath));
+  CSharp::beforeInstall(
+      this, manager(), parentWidget(),
+      std::const_pointer_cast<IFileTree>(scriptFile->parent()->parent()),
+      std::move(entryToPath));
   return CSharp::executeCSharpScript(scriptPath, tree);
 }
