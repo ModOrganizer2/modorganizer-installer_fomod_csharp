@@ -15,6 +15,8 @@ You should have received a copy of the GNU General Public License
 along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// clang-format off
+
 #ifndef BASE_SCRIPT_H
 #define BASE_SCRIPT_H
 
@@ -268,7 +270,7 @@ namespace CSharp {
     /// The items, previews, and descriptions are repectively ordered. In other words,
     /// the i-th item in <paramref name="p_strItems"/> uses the i-th preview in
     /// <paramref name="p_strPreviewPaths"/> and the i-th description in <paramref name="p_strDescriptions"/>.
-    /// 
+    ///
     /// Similarly, the idices return as results correspond to the indices of the items in
     /// <paramref name="p_strItems"/>.
     /// </remarks>
@@ -294,7 +296,7 @@ namespace CSharp {
     /// The items, previews, and descriptions are repectively ordered. In other words,
     /// the i-th item in <paramref name="p_strItems"/> uses the i-th preview in
     /// <paramref name="p_imgPreviews"/> and the i-th description in <paramref name="p_strDescriptions"/>.
-    /// 
+    ///
     /// Similarly, the idices return as results correspond to the indices of the items in
     /// <paramref name="p_strItems"/>.
     /// </remarks>
@@ -492,7 +494,7 @@ namespace CSharp {
     /// <returns>The specified value as a string.</returns>
     /// <seealso cref="GetPrefsIniInt(string, string)"/>
     static String^ GetPrefsIniString(String^ p_strSection, String^ p_strKey) {
-      // This looks wrong? Yes! But that's what used in other mod managers... 
+      // This looks wrong? Yes! But that's what used in other mod managers...
       return GetIniString("FalloutPrefs.ini", p_strSection, p_strKey);
     }
 
@@ -504,7 +506,7 @@ namespace CSharp {
     /// <returns>The specified value as an integer.</returns>
     /// <seealso cref="GetPrefsIniString(string, string)"/>
     static int GetPrefsIniInt(String^ p_strSection, String^ p_strKey) {
-      // This looks wrong? Yes! But that's what used in other mod managers... 
+      // This looks wrong? Yes! But that's what used in other mod managers...
       return GetIniInt("FalloutPrefs.ini", p_strSection, p_strKey);
     }
 
@@ -520,7 +522,7 @@ namespace CSharp {
     static bool EditIni(String^ p_strSettingsFileName, String^ p_strSection, String^ p_strKey, String^ p_strValue);
 
     /// <summary>
-    /// Sets the specified value in the Fallout.ini file to the given value. 
+    /// Sets the specified value in the Fallout.ini file to the given value.
     /// </summary>
     /// <param name="p_strSection">The section in the Ini file to edit.</param>
     /// <param name="p_strKey">The key in the Ini file to edit.</param>
@@ -541,8 +543,8 @@ namespace CSharp {
 }
 
 // BaseScript cannot be in a namespace:
-public ref struct SelectOption: public CSharp::SelectOption { 
-  SelectOption(System::String^ item, System::String^ preview, System::String^ desc) : 
+public ref struct SelectOption: public CSharp::SelectOption {
+  SelectOption(System::String^ item, System::String^ preview, System::String^ desc) :
     CSharp::SelectOption(item, preview, desc) { }
 };
 public ref class BaseScript: public CSharp::BaseScriptImpl { };

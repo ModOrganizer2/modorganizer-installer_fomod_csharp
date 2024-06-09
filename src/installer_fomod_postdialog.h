@@ -16,8 +16,8 @@ class InstallerFomodPostDialog : public QDialog
   Q_OBJECT
 
 public:
-
-  enum class Result {
+  enum class Result
+  {
     APPLY,
     DISCARD,
     MOVE,
@@ -29,13 +29,14 @@ public:
    * @param preset suggested name for the mod
    * @param parent parent widget
    **/
-  explicit InstallerFomodPostDialog(QWidget* parent = 0) :
-    QDialog(parent), ui(new Ui::FomodCSharpPostDialog) {
+  explicit InstallerFomodPostDialog(QWidget* parent = 0)
+      : QDialog(parent), ui(new Ui::FomodCSharpPostDialog)
+  {
     ui->setupUi(this);
     setWindowFlags(windowFlags() & (~Qt::WindowContextHelpButtonHint));
   }
 
-  ~InstallerFomodPostDialog() { }
+  ~InstallerFomodPostDialog() {}
 
   /**
    * @return the result of this dialog if the user did not cancel.
@@ -45,7 +46,8 @@ public:
   /**
    *
    */
-  void setIniSettings(std::map<QString, PSettings> const& settings) {
+  void setIniSettings(std::map<QString, PSettings> const& settings)
+  {
     for (auto p : settings) {
       QTextEdit* widget = new QTextEdit(this);
       widget->append(p.second.toString());
@@ -56,29 +58,30 @@ public:
 
 private slots:
 
-  void on_discardBtn_clicked() {
+  void on_discardBtn_clicked()
+  {
     m_Result = Result::DISCARD;
     this->accept();
   }
 
-  void on_applyBtn_clicked() {
+  void on_applyBtn_clicked()
+  {
     m_Result = Result::APPLY;
     this->accept();
   }
 
-  void on_moveBtn_clicked() {
+  void on_moveBtn_clicked()
+  {
     m_Result = Result::MOVE;
     this->accept();
   }
 
-  void on_cancelBtn_clicked() {
-    this->reject();
-  }
+  void on_cancelBtn_clicked() { this->reject(); }
 
 private:
   std::unique_ptr<Ui::FomodCSharpPostDialog> ui;
 
-  Result m_Result{ Result::APPLY };
+  Result m_Result{Result::APPLY};
 };
 
 #endif
