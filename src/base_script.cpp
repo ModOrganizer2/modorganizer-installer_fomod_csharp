@@ -34,9 +34,9 @@ along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 #include "imoinfo.h"
 #include "iplugingame.h"
 #include "ipluginlist.h"
+#include "igamefeatures.h"
 #include "iinstallationmanager.h"
 #include "log.h"
-
 #include "scriptextender.h"
 
 #include "psettings.h"
@@ -59,7 +59,7 @@ namespace CSharp {
     std::shared_ptr<IFileTree> DestinationTree;
 
     // Map from path in destination entry to the original entry:
-    std::map<std::shared_ptr<const FileTreeEntry>, 
+    std::map<std::shared_ptr<const FileTreeEntry>,
       std::shared_ptr<const FileTreeEntry>> InstalledEntries;
 
     // Map extracted entries (in the original tree) to (temporary) paths:
@@ -73,9 +73,9 @@ namespace CSharp {
 
     Globals() { }
     Globals(
-      IPlugin const* plugin,MOBase::IInstallationManager* manager, QWidget* parentWidget, 
+      IPlugin const* plugin, MOBase::IInstallationManager* manager, QWidget* parentWidget,
       std::shared_ptr<MOBase::IFileTree> tree, std::map<std::shared_ptr<const FileTreeEntry>, QString> entries) :
-        m_Plugin(plugin), InstallManager(manager), ParentWidget(parentWidget), SourceTree(tree), DestinationTree(tree->createOrphanTree()), ExtractedEntries(std::move(entries)) {
+      m_Plugin(plugin), InstallManager(manager), ParentWidget(parentWidget), SourceTree(tree), DestinationTree(tree->createOrphanTree()), ExtractedEntries(std::move(entries)) {
 
     }
 
@@ -103,7 +103,7 @@ namespace CSharp {
     g_Organizer = moInfo;
   }
 
-  void beforeInstall(IPlugin const* plugin, MOBase::IInstallationManager* manager, QWidget* parentWidget, 
+  void beforeInstall(IPlugin const* plugin, MOBase::IInstallationManager* manager, QWidget* parentWidget,
     std::shared_ptr<MOBase::IFileTree> tree, std::map<std::shared_ptr<const FileTreeEntry>, QString> entries) {
     g = { plugin, manager, parentWidget, tree, std::move(entries) };
   }
@@ -123,10 +123,10 @@ namespace CSharp {
 
       switch (dialog->result()) {
 
-      // Discard, nothing do to:
+        // Discard, nothing do to:
       case InstallerFomodPostDialog::Result::DISCARD: break;
 
-      // Apply, must fetch the profile INI settings and apply the settings:
+        // Apply, must fetch the profile INI settings and apply the settings:
       case InstallerFomodPostDialog::Result::APPLY: {
         for (auto& p : g.Settings) {
           QDir path(g_Organizer->profilePath());
@@ -144,7 +144,7 @@ namespace CSharp {
         }
       } break;
 
-      // Move, must create the INI files and apply the settings:
+                                                  // Move, must create the INI files and apply the settings:
       case InstallerFomodPostDialog::Result::MOVE: {
         for (auto& p : g.Settings) {
           auto e = g.DestinationTree->addFile("INI Tweaks/" + p.first, false);
@@ -186,7 +186,7 @@ namespace CSharp {
   }
 
   bool BaseScriptImpl::PerformBasicInstall() {
-    for (auto e: *g.SourceTree) {
+    for (auto e : *g.SourceTree) {
       if (!isFomodEntry(e)) {
         auto ce = g.DestinationTree->copy(e, "", IFileTree::InsertPolicy::MERGE);
         g.InstalledEntries[ce] = e;
@@ -223,7 +223,7 @@ namespace CSharp {
         paths.push_back(path + entry->name());
       }
       return IFileTree::WalkReturn::CONTINUE;
-    }, "/");
+      }, "/");
 
     // Convert to C#:
     array<String^>^ result = gcnew array<String^>(paths.size());
@@ -282,7 +282,7 @@ namespace CSharp {
   QStringList getDataFiles(QString folder, QString pattern, bool allFolders) {
     QStringList files = g_Organizer->findFiles(folder, [pattern](QString const& filepath) {
       return QDir::match(pattern, QFileInfo(filepath).fileName());
-    });
+      });
     if (allFolders) {
       QStringList directories = g_Organizer->listDirectories(folder);
       for (QString directory : directories) {
@@ -319,11 +319,11 @@ namespace CSharp {
    *   file was not found.
    */
   String^ getDataFilePath(String^ p_strPath) {
-    
+
     // Check if the file is in the output tree:
     QString qPath = to_qstring(p_strPath);
     if (auto e = g.DestinationTree->find(qPath); e != nullptr) {
-        
+
       // Check if it's a created entry:
       if (auto it = g.CreatedEntries.find(e); it != g.CreatedEntries.end()) {
         return from_string(g.CreatedEntries[e]);
@@ -359,7 +359,7 @@ namespace CSharp {
     auto path = std::filesystem::path(qPath.toStdWString()).make_preferred();
     QStringList paths = g_Organizer->findFiles(ToQString(path.parent_path().native()), [name = ToQString(path.filename())](QString const& filepath) {
       return QFileInfo(filepath).fileName().compare(name, Qt::CaseInsensitive) == 0;
-    });
+      });
 
     if (paths.isEmpty()) {
       return nullptr;
@@ -502,8 +502,8 @@ namespace CSharp {
   array<int>^ BaseScriptImpl::Select(array<SelectOption^>^ p_sopOptions, String^ p_strTitle, bool p_booSelectMany) {
     using namespace System::Collections::Generic;
 
-    QDialog *inputDialog = new QDialog();
-    QVBoxLayout *layout = new QVBoxLayout(inputDialog);
+    QDialog* inputDialog = new QDialog();
+    QVBoxLayout* layout = new QVBoxLayout(inputDialog);
     inputDialog->setWindowTitle(to_qstring(p_strTitle));
     inputDialog->setLayout(layout);
 
@@ -533,12 +533,12 @@ namespace CSharp {
       layout->addWidget(btn);
       items.append(btn);
     }
-    
+
     if (!p_booSelectMany && items.size() > 0) {
       items[0]->setChecked(true);
     }
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(
       QDialogButtonBox::Cancel | QDialogButtonBox::Ok, inputDialog);
     layout->addWidget(buttonBox);
 
@@ -561,7 +561,7 @@ namespace CSharp {
 
     return selected->ToArray();
   }
-  
+
   // Versioning / INIs:
 
   // Convert to Version^ from a MO2 version:
@@ -580,7 +580,7 @@ namespace CSharp {
   }
 
   Version^ BaseScriptImpl::GetScriptExtenderVersion() {
-    auto scriptExtender = g_Organizer->managedGame()->feature<ScriptExtender>();
+    auto scriptExtender = g_Organizer->gameFeatures()->gameFeature<ScriptExtender>();
 
     if (!scriptExtender || !scriptExtender->isInstalled()) {
       return nullptr;
@@ -590,7 +590,7 @@ namespace CSharp {
   }
 
   bool BaseScriptImpl::ScriptExtenderPresent() {
-    auto scriptExtender = g_Organizer->managedGame()->feature<ScriptExtender>();
+    auto scriptExtender = g_Organizer->gameFeatures()->gameFeature<ScriptExtender>();
     return scriptExtender && scriptExtender->isInstalled();
   }
 
@@ -619,7 +619,7 @@ namespace CSharp {
     }
     return result;
   }
-  
+
   // INIs:
   String^ BaseScriptImpl::GetIniString(String^ settingsFileName, String^ section, String^ key) {
 
@@ -639,7 +639,7 @@ namespace CSharp {
     }
 
     QSettings settings(path.filePath(to_qstring(settingsFileName)), QSettings::IniFormat);
-    
+
     if (settings.status() != QSettings::NoError) {
       return nullptr;
     }
@@ -655,7 +655,7 @@ namespace CSharp {
     }
 
     return from_string(value.toString().toStdString());
-  } 
+  }
 
   int BaseScriptImpl::GetIniInt(String^ settingsFileName, String^ section, String^ key) {
     return Convert::ToInt32(GetIniString(settingsFileName, section, key));
