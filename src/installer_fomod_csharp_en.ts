@@ -91,7 +91,7 @@
 <context>
     <name>FomodInfoReader</name>
     <message>
-        <location filename="xml_info_reader.h" line="106"/>
+        <location filename="xml_info_reader.h" line="109"/>
         <source>Failed to parse %1. See console for details.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -99,12 +99,12 @@
 <context>
     <name>InstallerFomodCSharp</name>
     <message>
-        <location filename="installer_fomod_csharp.h" line="40"/>
+        <location filename="installer_fomod_csharp.h" line="36"/>
         <source>Fomod Installer C#</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="installer_fomod_csharp.h" line="48"/>
+        <location filename="installer_fomod_csharp.h" line="42"/>
         <source>Installer for C# based FOMOD archives.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -112,12 +112,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="base_script.cpp" line="513"/>
+        <location filename="base_script.cpp" line="515"/>
         <source>Choose any:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="base_script.cpp" line="516"/>
+        <location filename="base_script.cpp" line="518"/>
         <source>Choose one:</source>
         <translation type="unfinished"></translation>
     </message>

@@ -323,24 +323,24 @@ namespace CSharp {
     /// Gets the version of the mod manager.
     /// </summary>
     /// <returns>The version of the mod manager.</returns>
-    static Version^ GetModManagerVersion();
+    static System::Version^ GetModManagerVersion();
 
     /// <summary>
     /// Gets the version of the game that is installed.
     /// </summary>
     /// <returns>The version of the game, or <c>null</c> if Fallout
     /// is not installed.</returns>
-    static Version^ GetGameVersion();
+    static System::Version^ GetGameVersion();
 
     // This is not in the spec., but I do not see a point in checking each
     // script extender in a different way.
-    static Version^ GetScriptExtenderVersion();
+    static System::Version^ GetScriptExtenderVersion();
 
     /// <summary>
     /// Gets the script extender version or null if it's not installed
     /// </summary>
     /// <returns></returns>
-    static Version^ GetSkseVersion() {
+    static System::Version^ GetSkseVersion() {
       return GetScriptExtenderVersion();
     }
 
@@ -348,7 +348,7 @@ namespace CSharp {
     /// Gets the script extender version or null if it's not installed
     /// </summary>
     /// <returns></returns>
-    static Version^ GetFoseVersion() {
+    static System::Version^ GetFoseVersion() {
       return GetScriptExtenderVersion();
     }
 
@@ -356,7 +356,7 @@ namespace CSharp {
     /// Gets the script extender version or null if it's not installed
     /// </summary>
     /// <returns></returns>
-    static Version^ GetNvseVersion() {
+    static System::Version^ GetNvseVersion() {
       return GetScriptExtenderVersion();
     }
 
@@ -364,7 +364,7 @@ namespace CSharp {
     /// Gets the version of the mod manager.
     /// </summary>
     /// <returns>The version of the mod manager.</returns>
-    static Version^ GetFommVersion() {
+    static System::Version^ GetFommVersion() {
       return GetModManagerVersion();
     }
 
@@ -373,7 +373,7 @@ namespace CSharp {
     /// </summary>
     /// <returns>The version of the game, or <c>null</c> if Fallout
     /// is not installed.</returns>
-    static Version^ GetFalloutVersion() {
+    static System::Version^ GetFalloutVersion() {
       // I think this is an old function... What Fallout anyway? So just going
       // to return the game version, whatever current game.
       return GetGameVersion();
