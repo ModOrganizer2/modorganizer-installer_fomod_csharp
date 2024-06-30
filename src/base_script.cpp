@@ -567,28 +567,28 @@ namespace CSharp {
   // Versioning / INIs:
 
   // Convert to Version^ from a MO2 version:
-  inline Version^ make_version(VersionInfo version) {
+  inline System::Version^ make_version(VersionInfo version) {
     auto qversion = version.asQVersionNumber();
-    return gcnew Version(qversion.majorVersion(), qversion.minorVersion(), qversion.microVersion());
+    return gcnew System::Version(qversion.majorVersion(), qversion.minorVersion(), qversion.microVersion());
 
   }
 
-  Version^ BaseScriptImpl::GetModManagerVersion() {
+  System::Version^ BaseScriptImpl::GetModManagerVersion() {
     return make_version(g_Organizer->appVersion());
   }
 
-  Version^ BaseScriptImpl::GetGameVersion() {
+  System::Version^ BaseScriptImpl::GetGameVersion() {
     return make_version(g_Organizer->managedGame()->gameVersion());
   }
 
-  Version^ BaseScriptImpl::GetScriptExtenderVersion() {
+  System::Version^ BaseScriptImpl::GetScriptExtenderVersion() {
     auto scriptExtender = g_Organizer->gameFeatures()->gameFeature<ScriptExtender>();
 
     if (!scriptExtender || !scriptExtender->isInstalled()) {
       return nullptr;
     }
 
-    return gcnew Version(msclr::interop::marshal_as<String^>(scriptExtender->getExtenderVersion().toStdString()));
+    return gcnew System::Version(msclr::interop::marshal_as<String^>(scriptExtender->getExtenderVersion().toStdString()));
   }
 
   bool BaseScriptImpl::ScriptExtenderPresent() {
