@@ -24,7 +24,7 @@ along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 #using <System.Drawing.dll>
 #using <System.Windows.Forms.dll>
 
-#include <iplugininstaller.h>
+#include <uibase/iplugininstaller.h>
 
 /**
  * Note: The specification of BaseScript where taken from the Nexus-Mods installer_fomod extension

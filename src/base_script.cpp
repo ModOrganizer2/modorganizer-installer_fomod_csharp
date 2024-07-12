@@ -15,38 +15,38 @@ You should have received a copy of the GNU General Public License
 along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// clang-format off
-
 #include "base_script.h"
 
 #include <filesystem>
 #include <map>
 
-#include <QMessageBox>
 #include <QCheckBox>
-#include <QRadioButton>
-#include <QInputDialog>
-#include <QSettings>
 #include <QDialogButtonBox>
-#include <QPushButton>
-#include <QVersionNumber>
+#include <QInputDialog>
 #include <QLabel>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSettings>
 #include <QVBoxLayout>
+#include <QVersionNumber>
 
-#include "imoinfo.h"
-#include "iplugingame.h"
-#include "ipluginlist.h"
-#include "igamefeatures.h"
-#include "iinstallationmanager.h"
-#include "log.h"
-#include "scriptextender.h"
+#include <uibase/game_features/igamefeatures.h>
+#include <uibase/game_features/scriptextender.h>
+#include <uibase/iinstallationmanager.h>
+#include <uibase/imoinfo.h>
+#include <uibase/iplugingame.h>
+#include <uibase/ipluginlist.h>
+#include <uibase/log.h>
 
-#include "psettings.h"
-#include "installer_fomod_postdialog.h"
 #include "csharp_interface.h"
 #include "csharp_utils.h"
+#include "installer_fomod_postdialog.h"
+#include "psettings.h"
 
 using namespace MOBase;
+
+// clang-format off
 
 namespace CSharp {
 
