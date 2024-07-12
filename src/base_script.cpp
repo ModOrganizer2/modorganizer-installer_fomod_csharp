@@ -15,38 +15,38 @@ You should have received a copy of the GNU General Public License
 along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// clang-format off
-
 #include "base_script.h"
 
 #include <filesystem>
 #include <map>
 
-#include <QMessageBox>
 #include <QCheckBox>
-#include <QRadioButton>
-#include <QInputDialog>
-#include <QSettings>
 #include <QDialogButtonBox>
-#include <QPushButton>
-#include <QVersionNumber>
+#include <QInputDialog>
 #include <QLabel>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSettings>
 #include <QVBoxLayout>
+#include <QVersionNumber>
 
-#include "imoinfo.h"
-#include "iplugingame.h"
-#include "ipluginlist.h"
-#include "igamefeatures.h"
-#include "iinstallationmanager.h"
-#include "log.h"
-#include "scriptextender.h"
+#include <uibase/game_features/igamefeatures.h>
+#include <uibase/game_features/scriptextender.h>
+#include <uibase/iinstallationmanager.h>
+#include <uibase/imoinfo.h>
+#include <uibase/iplugingame.h>
+#include <uibase/ipluginlist.h>
+#include <uibase/log.h>
 
-#include "psettings.h"
-#include "installer_fomod_postdialog.h"
 #include "csharp_interface.h"
 #include "csharp_utils.h"
+#include "installer_fomod_postdialog.h"
+#include "psettings.h"
 
 using namespace MOBase;
+
+// clang-format off
 
 namespace CSharp {
 
@@ -228,8 +228,9 @@ namespace CSharp {
       }, "/");
 
     // Convert to C#:
-    array<String^>^ result = gcnew array<String^>(paths.size());
-    for (std::size_t i = 0; i < paths.size(); ++i) {
+    const auto size = static_cast<int>(paths.size());
+    array<String^>^ result = gcnew array<String^>(size);
+    for (int i = 0; i < size; ++i) {
       result[i] = from_string(paths[i].toStdWString());
     }
 
@@ -401,7 +402,7 @@ namespace CSharp {
     }
     // Otherwize: Create the entry and the temporary file:
     else {
-      auto entry = g.DestinationTree->addFile(qPath, true);
+      entry = g.DestinationTree->addFile(qPath, true);
       qAbsPath = g.InstallManager->createFile(entry);
       if (qAbsPath.isEmpty()) {
         // Remove the entry from the tree:
@@ -574,7 +575,8 @@ namespace CSharp {
   }
 
   System::Version^ BaseScriptImpl::GetModManagerVersion() {
-    return make_version(g_Organizer->appVersion());
+    const auto version = g_Organizer->version();
+    return gcnew System::Version(version.major(), version.minor(), version.patch());
   }
 
   System::Version^ BaseScriptImpl::GetGameVersion() {

@@ -3,7 +3,7 @@
 
 #include "ui_installer_fomod_csharp_predialog.h"
 
-#include "guessedvalue.h"
+#include <uibase/guessedvalue.h>
 
 #include <QCompleter>
 

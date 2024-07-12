@@ -24,7 +24,7 @@ along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 #using <System.Drawing.dll>
 #using <System.Windows.Forms.dll>
 
-#include <iplugininstaller.h>
+#include <uibase/iplugininstaller.h>
 
 /**
  * Note: The specification of BaseScript where taken from the Nexus-Mods installer_fomod extension
@@ -306,7 +306,7 @@ namespace CSharp {
     /// <param name="p_strTitle">The title of the selection form.</param>
     /// <param name="p_booSelectMany">Whether more than one item can be selected.</param>
     /// <returns>The indices of the selected items.</returns>
-    static array<int>^ ImageSelect(array<String^>^ p_strItems, array<Image^>^ p_imgPreviews, array<String^>^ p_strDescriptions, String^ p_strTitle, bool p_booSelectMany) {
+    static array<int>^ ImageSelect(array<String^>^ p_strItems, array<Image^>^ /* p_imgPreviews */, array<String^>^ p_strDescriptions, String^ p_strTitle, bool p_booSelectMany) {
       return Select(p_strItems, gcnew array<String^>(p_strItems->Length), p_strDescriptions, p_strTitle, p_booSelectMany);
     }
 
@@ -404,7 +404,7 @@ namespace CSharp {
     /// </summary>
     /// <param name="p_strPluginPath">The path to the plugin to activate or deactivate.</param>
     /// <param name="p_booActivate">Whether to activate the plugin.</param>
-    static void SetPluginActivation(String^ p_strPluginPath, bool p_booActivate) {
+    static void SetPluginActivation(String^ /* p_strPluginPath */, bool /* p_booActivate */) {
       // throw gcnew NotImplementedException("SetPluginActivation");
     }
 
@@ -413,7 +413,7 @@ namespace CSharp {
     /// </summary>
     /// <param name="p_strPlugin">The path to the plugin file whose load order is to be set.</param>
     /// <param name="p_intNewIndex">The new load order index of the plugin.</param>
-    static void SetPluginOrderIndex(String^ p_strPlugin, int p_intNewIndex) {
+    static void SetPluginOrderIndex(String^ /* p_strPlugin */, int /* p_intNewIndex */) {
       // throw gcnew NotImplementedException("SetPluginOrderIndex");
     }
 
@@ -426,7 +426,7 @@ namespace CSharp {
     /// </remarks>
     /// <param name="p_intPlugins">The new load order of the plugins. Each entry in this array
     /// contains the current index of a plugin. This array must contain all current indices.</param>
-    static void SetLoadOrder(array<int>^ p_intPlugins) {
+    static void SetLoadOrder(array<int>^ /* p_intPlugins */) {
       // throw gcnew NotImplementedException("SetLoadOrder");
     }
 
@@ -443,7 +443,7 @@ namespace CSharp {
     /// load order. Each entry in this array contains the current index of a plugin.</param>
     /// <param name="p_intPosition">The position in the load order to which to move the specified
     /// plugins.</param>
-    static void SetLoadOrder(array<int>^ p_intPlugins, int p_intPosition) {
+    static void SetLoadOrder(array<int>^ /* p_intPlugins */, int /* p_intPosition */) {
       // throw gcnew NotImplementedException("SetLoadOrder");
     }
 
@@ -530,7 +530,7 @@ namespace CSharp {
     /// <param name="p_booSaveOld">Not used.</param>
     /// <returns><c>true</c> if the value was set; <c>false</c>
     /// if the user chose not to overwrite the existing value.</returns>
-    static bool EditFalloutINI(String^ p_strSection, String^ p_strKey, String^ p_strValue, bool p_booSaveOld) {
+    static bool EditFalloutINI(String^ p_strSection, String^ p_strKey, String^ p_strValue, bool /* p_booSaveOld */) {
       return EditIni("Fallout.ini", p_strSection, p_strKey, p_strValue);
     }
 
