@@ -18,7 +18,7 @@ along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef INSTALLER_FOMOD_CSHARP_H
 #define INSTALLER_FOMOD_CSHARP_H
 
-#include "iplugininstallersimple.h"
+#include <uibase/iplugininstallersimple.h>
 
 class InstallerFomodCSharp : public MOBase::IPluginInstallerSimple
 {

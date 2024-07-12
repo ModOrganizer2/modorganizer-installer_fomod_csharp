@@ -8,8 +8,8 @@
 #include <QTextStream>
 #include <QXmlStreamReader>
 
-#include "log.h"
-#include "utility.h"
+#include <uibase/log.h>
+#include <uibase/utility.h>
 
 // This is from installer_fomod, but should probably not be duplicated here.
 

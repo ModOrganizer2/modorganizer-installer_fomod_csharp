@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "iinstallationmanager.h"
+#include <uibase/iinstallationmanager.h>
 
 #include "csharp_interface.h"
 #include "installer_fomod_csharp.h"
@@ -145,7 +145,7 @@ InstallerFomodCSharp::install(MOBase::GuessedValue<QString>& modName,
   QStringList paths(manager()->extractFiles(toExtract));
 
   // If user cancelled:
-  if (toExtract.size() != paths.size()) {
+  if (toExtract.size() != static_cast<std::size_t>(paths.size())) {
     return EInstallResult::RESULT_CANCELED;
   }
 
