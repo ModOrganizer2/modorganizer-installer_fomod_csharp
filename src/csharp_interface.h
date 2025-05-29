@@ -3,8 +3,8 @@
 
 #include <map>
 
-#include "ifiletree.h"
-#include "iplugininstaller.h"
+#include <uibase/ifiletree.h>
+#include <uibase/iplugininstaller.h>
 
 namespace CSharp
 {

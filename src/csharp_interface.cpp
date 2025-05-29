@@ -1,15 +1,15 @@
-// clang-format off
-
 #include "csharp_interface.h"
 
 #include <fstream>
-#include <sstream>
 #include <regex>
+#include <sstream>
 
-#include "log.h"
+#include <uibase/log.h>
 
-#include "csharp_utils.h"
 #include "base_script.h"
+#include "csharp_utils.h"
+
+// clang-format off
 
 #using <System.dll>
 
@@ -73,7 +73,6 @@ IPluginInstaller::EInstallResult executeScript(System::String^ script) {
   auto result = provider->CompileAssemblyFromSource(cp, script);
 
   int errorCount = 0;
-  CompilerErrorCollection^ errors = result->Errors;
   for each (CompilerError ^ error in result->Errors) {
     if (error->IsWarning) {
       log::warn("C# [{}]: {}", error->Line, CSharp::to_string(error->ErrorText));
